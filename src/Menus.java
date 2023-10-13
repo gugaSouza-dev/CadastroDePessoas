@@ -25,9 +25,7 @@
 					default:
 						break;
 				}
-
 			} while (!opcao.equals("0"));
-
 		}
 
 		public static void menuPessoaJuridica(Scanner leitor) {
@@ -38,7 +36,6 @@
 			do {
 				System.out.println("Escolha uma opção: \n 1 - Cadastrar Pessoa Jurídica \n 2 - Pessoa Listar Pessoas Jurídicas \n 0 - Sair");
 				opcao = leitor.nextLine();
-
 				switch (opcao)
 				{
 					case "1":
@@ -55,6 +52,5 @@
 				}
 			} while (!opcao.equals("0"));
 		}
-
 	}
 
