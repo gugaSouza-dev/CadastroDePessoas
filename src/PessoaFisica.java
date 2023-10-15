@@ -1,13 +1,12 @@
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class PessoaFisica extends Pessoa {
 	public String cpf;
 	public LocalDate dataNascimento;
-	public List<PessoaFisica> listaPessoasFisicas;
 
 	@Override
 	public float CalcularImposto(float rendimento) {
@@ -21,44 +20,43 @@ public class PessoaFisica extends Pessoa {
 			return rendimento * 0.05f;
 	}
 
-	public static void CadastrarPessoa(Scanner leitor, PessoaFisica pessoa) {
-		Endereco endereco = new Endereco();
-		String endCom;
+	public static PessoaFisica CadastrarPessoa() {
+		PessoaFisica pessoa = new PessoaFisica();
 
-		pessoa.nome = Utils.InputUsuario("Informe o nome: ", leitor);
-		pessoa.cpf = Utils.InputUsuario("Informe o cpf: ", leitor);
-		pessoa.rendimento = Utils.InputUsuarioFloat("Informe o valor rendimento, separando os centavos por ponto (.): ", leitor);
+		pessoa.nome = Input.InputUsuario("Informe o nome: ");
+		pessoa.cpf = Input.InputUsuario("Informe o cpf: ");
+		pessoa.rendimento = Input.InputUsuarioFloat("Informe o valor rendimento, separando os centavos por ponto (.): ");
 		if (pessoa.rendimento == null)
-			return;
-		pessoa.dataNascimento = Utils.InputUsuarioLocalDate("Informe a data de nascimento: (dd/mm/aaaa): ", leitor);
+			return null;
+		pessoa.dataNascimento = Input.InputUsuarioLocalDate("Informe a data de nascimento: (dd/mm/aaaa): ");
 		if (pessoa.dataNascimento == null)
-			return;
+			return null;
 		Period idade = Period.between(pessoa.dataNascimento, LocalDate.now());
 		if (idade.getYears() >= 18)
 			System.out.printf("Idade Válida (%d anos)\n", idade.getYears());
 		else {
 			System.out.printf("Idade Invalida (%d anos)\n", idade.getYears());
-			return;
+			return null;
 		}
-		endereco.logradouro = Utils.InputUsuario("Informe o logradouro:", leitor);
-		endereco.numero = Utils.InputUsuario("Informe o numero:", leitor);
-		endCom = Utils.InputUsuario("Este endereço é comercial? S/N:", leitor);
-		endereco.comercial = endCom.equalsIgnoreCase("S");
+		return pessoa;
+	}
+
+	public static void SalvarPessoa(PessoaFisica pessoa, Endereco endereco, ArrayList<PessoaFisica> listaPessoasFisicas) {
 		pessoa.endereco = endereco;
-		pessoa.listaPessoasFisicas.add(pessoa);
+		listaPessoasFisicas.add(pessoa);
 		System.out.println("Cadastro realizado!");
 	}
 
-	public static void ListarPessoas(Scanner leitor, List<PessoaFisica> listaPessoas) {
+	public static void ListarPessoas(List<PessoaFisica> listaPessoas) {
 		for (PessoaFisica pessoa : listaPessoas) {
 			System.out.println("Nome: " + pessoa.nome
 					+ "\nCPF: " + pessoa.cpf
 					+ "\nData de Nascimento: "
 					+ pessoa.dataNascimento.format(DateTimeFormatter.ofPattern(
-							"dd/MM/yyyy"))
+					"dd/MM/yyyy"))
 					+ "\nEndereço: " + pessoa.endereco.logradouro + " - nº" + pessoa.endereco.numero);
 			System.out.println("Aperte ENTER para continuar");
-			leitor.nextLine();
+			Main.leitor.nextLine();
 		}
 	}
 }
