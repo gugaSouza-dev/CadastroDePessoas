@@ -63,7 +63,8 @@ public class PessoaFisica extends Pessoa {
 					+ "\nData de Nascimento: "
 					+ pessoa.dataNascimento.format(DateTimeFormatter.ofPattern(
 					"dd/MM/yyyy"))
-					+ "\nEndereço: " + pessoa.endereco.logradouro + " - nº" + pessoa.endereco.numero);
+					+ "\nEndereço: " + pessoa.endereco.logradouro + " - nº" + pessoa.endereco.numero
+					+ "\nImposto a pagar: " + pessoa.CalcularImposto(pessoa.rendimento));
 			System.out.println("Aperte ENTER para continuar");
 			Main.leitor.nextLine();
 		}

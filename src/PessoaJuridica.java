@@ -54,14 +54,15 @@ public class PessoaJuridica extends Pessoa {
 			System.out.println("Lista vazia.");
 			return;
 		}
-		for (PessoaJuridica pessoas : listaPessoas) {
-			System.out.println("Nome: " + pessoas.nome
-					+ "\nRazão Social: " + pessoas.razaoSocial
-					+ "\nCNPJ: " + pessoas.cnpj
+		for (PessoaJuridica pessoa : listaPessoas) {
+			System.out.println("Nome: " + pessoa.nome
+					+ "\nRazão Social: " + pessoa.razaoSocial
+					+ "\nCNPJ: " + pessoa.cnpj
 					+ "\nData de Inauguração: " +
-					pessoas.dataInauguracao.format(DateTimeFormatter.ofPattern(
+					pessoa.dataInauguracao.format(DateTimeFormatter.ofPattern(
 							"dd/MM/yyyy"))
-					+ "\nEndereço: " + pessoas.endereco.logradouro + " - nº" + pessoas.endereco.numero);
+					+ "\nEndereço: " + pessoa.endereco.logradouro + " - nº" + pessoa.endereco.numero
+					+ "\nImposto a pagar: " + pessoa.CalcularImposto(pessoa.rendimento));
 			System.out.println("Aperte ENTER para continuar");
 			Main.leitor.nextLine();
 		}
