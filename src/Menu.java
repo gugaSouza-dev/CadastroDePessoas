@@ -26,7 +26,7 @@ public class Menu extends Pessoa {
 
 	public static void menuPessoaFisica(ArrayList<PessoaFisica> listaPessoasFisicas) {
 		String opcao;
-		PessoaFisica pessoa;
+		PessoaFisica pessoa = new PessoaFisica();
 
 		do {
 			System.out.println("Escolha uma opção: \n1 - Cadastrar Pessoa Física \n2 - Pessoa Listar Pessoas Físicas \n0 - Voltar");
@@ -34,18 +34,10 @@ public class Menu extends Pessoa {
 
 			switch (opcao) {
 				case "1":
-					pessoa = PessoaFisica.CadastrarPessoa();
-					if (pessoa == null) {
-						System.out.println("Erro ao cadastrar Pessoa");
-						return;
-					}
-					PessoaFisica.SalvarPessoa(pessoa, Endereco.CadastrarEndereco(), listaPessoasFisicas);
+					PessoaFisica.CadastrarPessoa(pessoa, listaPessoasFisicas);
 					break;
 				case "2":
-					if (listaPessoasFisicas.isEmpty())
-						System.out.println("Lista vazia");
-					else
-						PessoaFisica.ListarPessoas(listaPessoasFisicas);
+					PessoaFisica.ListarPessoas(listaPessoasFisicas);
 					break;
 				default:
 					break;
@@ -54,7 +46,7 @@ public class Menu extends Pessoa {
 	}
 
 	public static void menuPessoaJuridica(ArrayList<PessoaJuridica> listaPessoasJuridicas) {
-		PessoaJuridica pessoa;
+		PessoaJuridica pessoa = new PessoaJuridica();
 		String opcao;
 
 		do {
@@ -62,17 +54,10 @@ public class Menu extends Pessoa {
 			opcao = Main.leitor.nextLine();
 			switch (opcao) {
 				case "1":
-					pessoa = PessoaJuridica.CadastrarPessoa();
-					if (pessoa == null)
-						System.out.println("Erro ao cadastrar Pessoa");
-					else
-						PessoaJuridica.SalvarPessoa(pessoa, Endereco.CadastrarEndereco(), listaPessoasJuridicas);
+					PessoaJuridica.CadastrarPessoa(pessoa, listaPessoasJuridicas);
 					break;
 				case "2":
-					if (listaPessoasJuridicas.isEmpty())
-						System.out.println("Lista Vazia");
-					else
-						PessoaJuridica.ListarPessoas(listaPessoasJuridicas);
+					PessoaJuridica.ListarPessoas(listaPessoasJuridicas);
 					break;
 				default:
 					break;

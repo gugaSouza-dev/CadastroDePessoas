@@ -19,7 +19,7 @@ public class Input {
 		try {
 			valor = Float.parseFloat(input);
 		} catch (Exception e) {
-			System.out.println("Valor informado precisa ser um valor numérico.");
+			System.out.println("ERROR:\nValor informado precisa ser numérico.");
 			return null;
 		}
 		return valor;
@@ -32,7 +32,7 @@ public class Input {
 		try {
 			data = LocalDate.parse(Main.leitor.next(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		} catch (Exception e) {
-			System.out.println("A data informada precisa ser válida e estar no seguinte formato: (dd/mm/aaaa).");
+			System.out.println("ERROR:\nA data informada precisa ser válida e estar no seguinte formato: (dd/mm/aaaa).");
 			Main.leitor.nextLine();
 			return null;
 		}

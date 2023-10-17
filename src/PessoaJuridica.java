@@ -20,9 +20,17 @@ public class PessoaJuridica extends Pessoa {
 			return rendimento * 0.09f;
 	}
 
-	public static PessoaJuridica CadastrarPessoa() {
-		PessoaJuridica pessoa = new PessoaJuridica();
+	public static void CadastrarPessoa(PessoaJuridica pessoa, ArrayList<PessoaJuridica> listaPessoasJuridicas) {
+		String formularioMensagem;
 
+		formularioMensagem = FormularioPessoaJuridica(pessoa);
+		if (formularioMensagem == null)
+			return;
+		System.out.println(formularioMensagem);
+		PessoaJuridica.SalvarPessoa(pessoa, Endereco.CadastrarEndereco(), listaPessoasJuridicas);
+	}
+
+	public static String FormularioPessoaJuridica(PessoaJuridica pessoa) {
 		pessoa.nome = Input.InputUsuario("Informe o nome:");
 		pessoa.razaoSocial = Input.InputUsuario("Informe a razão social:");
 		pessoa.cnpj = Input.InputUsuario("Informe o CNPJ:");
@@ -32,7 +40,7 @@ public class PessoaJuridica extends Pessoa {
 		pessoa.dataInauguracao = Input.InputUsuarioLocalDate("Informe a data de inauguração: (dd/mm/aaaa): ");
 		if (pessoa.dataInauguracao == null)
 			return null;
-		return pessoa;
+		return "Objeto Pessoa Jurídica criado com sucesso";
 	}
 
 	public static void SalvarPessoa(PessoaJuridica pessoa, Endereco endereco, ArrayList<PessoaJuridica> listaPessoasJuridicas) {
@@ -42,6 +50,10 @@ public class PessoaJuridica extends Pessoa {
 	}
 
 	public static void ListarPessoas(List<PessoaJuridica> listaPessoas) {
+		if (listaPessoas == null) {
+			System.out.println("Lista vazia.");
+			return;
+		}
 		for (PessoaJuridica pessoas : listaPessoas) {
 			System.out.println("Nome: " + pessoas.nome
 					+ "\nRazão Social: " + pessoas.razaoSocial

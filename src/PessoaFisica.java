@@ -20,9 +20,17 @@ public class PessoaFisica extends Pessoa {
 			return rendimento * 0.05f;
 	}
 
-	public static PessoaFisica CadastrarPessoa() {
-		PessoaFisica pessoa = new PessoaFisica();
+	public static void CadastrarPessoa(PessoaFisica pessoa, ArrayList<PessoaFisica> listaPessoasFisicas) {
+		String formularioMensagem;
 
+		formularioMensagem = FormularioPessoFisica(pessoa);
+		if (formularioMensagem == null)
+			return;
+		System.out.println(formularioMensagem);
+		PessoaFisica.SalvarPessoa(pessoa, Endereco.CadastrarEndereco(), listaPessoasFisicas);
+	}
+
+	public static String FormularioPessoFisica(PessoaFisica pessoa) {
 		pessoa.nome = Input.InputUsuario("Informe o nome: ");
 		pessoa.cpf = Input.InputUsuario("Informe o cpf: ");
 		pessoa.rendimento = Input.InputUsuarioFloat("Informe o valor rendimento, separando os centavos por ponto (.): ");
@@ -32,13 +40,10 @@ public class PessoaFisica extends Pessoa {
 		if (pessoa.dataNascimento == null)
 			return null;
 		Period idade = Period.between(pessoa.dataNascimento, LocalDate.now());
-		if (idade.getYears() >= 18)
-			System.out.printf("Idade Válida (%d anos)\n", idade.getYears());
-		else {
-			System.out.printf("Idade Invalida (%d anos)\n", idade.getYears());
-			return null;
-		}
-		return pessoa;
+		if (idade.getYears() <= 18)
+			return "Idade Invalida (" + idade.getYears() + " anos)\n";
+		System.out.printf("Idade Válida (%d anos)\n", idade.getYears());
+		return "Objeto Pessoa Física criado com sucesso!\n";
 	}
 
 	public static void SalvarPessoa(PessoaFisica pessoa, Endereco endereco, ArrayList<PessoaFisica> listaPessoasFisicas) {
@@ -48,6 +53,10 @@ public class PessoaFisica extends Pessoa {
 	}
 
 	public static void ListarPessoas(List<PessoaFisica> listaPessoas) {
+		if (listaPessoas == null) {
+			System.out.println("Lista vazia.");
+			return;
+		}
 		for (PessoaFisica pessoa : listaPessoas) {
 			System.out.println("Nome: " + pessoa.nome
 					+ "\nCPF: " + pessoa.cpf
